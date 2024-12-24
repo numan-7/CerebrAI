@@ -56,8 +56,8 @@
 }
 
 .blob {
-  border-radius: 42% 56% 72% 28% / 42% 42% 56% 48%;
-  animation: blob 20s linear infinite;
+  border-radius: 50% 50% 48% 52% / 50% 50% 52% 48%; 
+  animation: blob 25s ease-in-out infinite;
 }
 
 @keyframes blob {
