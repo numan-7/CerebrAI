@@ -12,10 +12,10 @@ export function HeroSection() {
   return (
     <div className="flex flex-col lg:flex-row items-center justify-between py-12 space-y-8 lg:space-y-0">
       <div className="lg:w-1/2">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-          <span className="paint-stroke">AI-Powered</span> Brain Tumor Detection
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+          <span className="gradient-text">AI-Powered</span> Brain Tumor Detection
         </h1>
-        <p className="text-lg sm:text-xl text-gray-600 mb-6">
+        <p className="text-lg sm:text-xl text-gray-600 mb-8">
           Upload your MRI scan and get instant results with our cutting-edge AI technology.
         </p>
         <Button className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white" onClick={scrollToTryItNow}>
@@ -23,11 +23,14 @@ export function HeroSection() {
         </Button>
       </div>
       <div className="lg:w-1/2 mt-8 lg:mt-0">
-        <img 
-          src="/brain.jpg" 
-          alt="Brain MRI Scan" 
-          className="rounded-lg shadow-lg w-full max-w-md mx-auto"
-        />
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full blur-3xl opacity-30"></div>
+          <img 
+            src="/brain.jpg" 
+            alt="Brain MRI Scan" 
+            className="relative rounded-lg shadow-2xl w-full max-w-md mx-auto blob"
+          />
+        </div>
       </div>
     </div>
   )
