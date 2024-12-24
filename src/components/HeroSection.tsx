@@ -16,7 +16,7 @@ export function HeroSection() {
           <span className="gradient-text">AI-Powered</span> Brain Tumor Detection
         </h1>
         <p className="text-lg sm:text-xl text-gray-600 mb-8">
-          Upload your MRI scan and get instant results with our cutting-edge AI technology.
+          Upload your MRI scan and get instant results with our AI technology.
         </p>
         <Button className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white" onClick={scrollToTryItNow}>
           Get Started <ArrowRight className="ml-2 h-4 w-4" />

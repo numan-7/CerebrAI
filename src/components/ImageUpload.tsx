@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from "@/components/ui/button"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Input } from "@/components/ui/input"
 import { toast } from "@/hooks/use-toast"
 import { Upload, X } from 'lucide-react'
@@ -81,7 +82,7 @@ export function ImageUpload({ setResult }: ImageUploadProps) {
       form.setValue('file', [file] as unknown as FileList);
     } else {
       setPreviewUrl(null);
-      form.setValue('file', undefined);
+      form.setValue('file', new DataTransfer().files);
     }
   }, [form]);
 
@@ -169,13 +170,25 @@ export function ImageUpload({ setResult }: ImageUploadProps) {
             </FormItem>
           )}
         />
-        <Button 
-          type="submit" 
-          disabled={isAnalyzing || !previewUrl} 
-          className="w-full bg-primary text-white hover:opacity-90 transition-opacity disabled:opacity-50"
-        >
-          {isAnalyzing ? 'Analyzing...' : 'Analyze Scan'}
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="w-full">
+                <Button 
+                  type="submit" 
+                  disabled={isAnalyzing || !previewUrl} 
+                  className="w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isAnalyzing ? 'Analyzing...' : 'Analyze Scan'}
+                </Button>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className = "font-poppins ">
+                  {!previewUrl ? 'Upload an image to analyze' : 'Click to analyze the uploaded image'}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </form>
     </Form>
   )
