@@ -82,7 +82,7 @@ This step will save the trained model, which the backend will use for prediction
     ```
 3. Open your browswer and navigate to `http://localhost:5173`
 
-### Usage
+## Usage
 1. Upload an MRI scan using the provided interface (at the bottom of home page)
 2. Wait for the AI model to analyze the scan.
 3. View the results with confidence level.
