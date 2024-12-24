@@ -67,9 +67,9 @@ def build_model(input_shape, num_classes):
     # custom layers 
     x = base_model.output
     x = Flatten(name="flatten")(x)
-    x = Dense(64, activation="relu", name="dense_1")(x)
-    x = Dropout(0.2, name="dropout_1")(x)
-    output = Dense(num_classes, activation="softmax", name="output")(x)
+    x = Dense(64, activation="relu")(x)
+    x = Dropout(0.2)(x)
+    output = Dense(num_classes, activation="softmax")(x)
 
     # create the model
     model = Model(inputs=base_model.input, outputs=output)
