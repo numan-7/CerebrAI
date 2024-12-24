@@ -1,4 +1,4 @@
-import { Github, Database, Code2, Code } from 'lucide-react'
+import { Github, Database, Code2 } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
 export function Footer() {
