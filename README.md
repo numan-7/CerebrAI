@@ -132,7 +132,13 @@ The model achieves high accuracy, precision, and recall across all categories. B
 - Performance is reliant on the quality and diversity of the training dataset, potentially limiting generalizability to unseen MRI scans.
 - Rare or highly complex tumor types may not be accurately classified due to dataset limitations.
 
+
 ## Acknowledgements
-- The custom classification head and model structure were inspired by [this Kaggle notebook](https://www.kaggle.com/code/alsaniipe/brain-tumor-classification-with-custom-cnn/notebook). The original implementation served as the foundation for designing the DenseNet201-based architecture.
-- Significant edits and improvements were made to the model, boosting its performance from an accuracy of **70.30%** to **99%** through fine-tuning, optimized data augmentation, and hyperparameter adjustments.
-- Special thanks to the open-source and Kaggle community for providing datasets and inspiration for building this project.
+- The initial inspiration for the model's custom classification head and structure came from [this Kaggle notebook](https://www.kaggle.com/code/alsaniipe/brain-tumor-classification-with-custom-cnn/notebook). While the original implementation served as a helpful reference, this project introduced significant modifications and optimizations tailored to a different dataset and classification task.  
+- Notably, this implementation included fine-tuning the DenseNet201 layers, which was absent in the original approach. This allowed the model to better adapt to the dataset and significantly improve accuracy.  
+- Additional improvements included:
+  - More advanced data augmentation techniques to enhance generalization.
+  - Adjustments to batch size and learning rate schedules for better convergence.
+  - A two-stage training process: initial training with frozen DenseNet201 layers followed by fine-tuning of unfrozen layers.  
+- Special thanks to CSU Chico for allowing students to use their 80GB A100 GPU, which enabled the training of this model.  
+
