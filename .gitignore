@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# models
+model/best_model.keras
+model/final_model.keras
