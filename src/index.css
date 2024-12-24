@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -61,10 +65,6 @@
   * {
     @apply border-border;
   }
-  html {
-    font-family: 'Poppins', sans-serif;
-    scroll-behavior: smooth;
-  }
   body {
     @apply bg-background text-foreground;
   }
@@ -79,7 +79,7 @@
   .paint-stroke::after {
     content: '';
     position: absolute;
-    bottom: -8px;
+    bottom: -4px;
     left: 0;
     width: 100%;
     height: 10px; 
