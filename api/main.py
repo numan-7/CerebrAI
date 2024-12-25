@@ -20,30 +20,30 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# load the model
-model = tf.keras.models.load_model("../model/best_model.keras")
+def get_model():
+    return tf.keras.models.load_model("../model/best_model.keras")
 
 # preprocess image function
 def preprocess_image(image: Image.Image) -> np.ndarray:
-    # resize image to match model's expected sizing
     image = image.resize((224, 224))
-    
-    # convert image to numpy array and normalize
+
     image_array = np.array(image)
+
+    if len(image_array.shape) != 3 or image_array.shape[2] != 3:
+        raise ValueError("Image does not have 3 color channels (RGB).")
+
     image_array = image_array / 255.0
-    
-    # add batch dimension
+
     image_array = np.expand_dims(image_array, axis=0)
-    
+
     return image_array
 
 @app.post("/api/analyze")
 async def analyze_brain_scan(file: UploadFile = File(...)):
-    # validate file type
-    # if file.content_type not in ["image/jpeg", "image/png"]:
-    #     raise HTTPException(400, detail="Invalid file type. Only JPEG and PNG are supported.")
-    
     try:
+        # ensure model is loaded
+        model = get_model()
+
         # read and preprocess the image
         contents = await file.read()
         image = Image.open(io.BytesIO(contents))
@@ -51,11 +51,11 @@ async def analyze_brain_scan(file: UploadFile = File(...)):
         
         # make prediction
         prediction = model.predict(processed_image)
-        prediction_class = np.argmax(prediction[0])
+        prediction_class = int(np.argmax(prediction[0]))  
         confidence = float(prediction[0][prediction_class]) * 100
         
         # convert prediction to boolean (3 is the index for no tumor)
-        has_tumor = prediction_class != 3
+        has_tumor = bool(prediction_class != 3)  
         
         return {
             "hasTumor": has_tumor,

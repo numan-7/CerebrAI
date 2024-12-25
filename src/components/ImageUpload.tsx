@@ -16,6 +16,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { useAnalyzeImage } from "@/hooks/useAnalyzeImage";
+
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 
@@ -40,7 +42,7 @@ type ImageUploadProps = {
 }
 
 export function ImageUpload({ setResult }: ImageUploadProps) {
-  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const { analyzeImage, isLoading: isAnalyzing, error } = useAnalyzeImage();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -49,29 +51,22 @@ export function ImageUpload({ setResult }: ImageUploadProps) {
   })
 
   const onSubmit = async (data: UploadFormValues) => {
-    setIsAnalyzing(true)
-    try {
-      // Simulate API call to ML model
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      const hasTumor = Math.random() > 0.5
-      const confidence = Math.random() * 100
-      setResult({ hasTumor, confidence })
+    const file = data.file[0];
+    const result = await analyzeImage(file);
+    if (result) {
+      setResult(result);
       toast({
         title: "Analysis Complete",
         description: "Your brain scan has been analyzed.",
-      })
-    } catch (error) {
-      console.error('Analysis error:', error)
+      });
+    } else {
       toast({
         title: "Error",
         description: "Failed to analyze the image. Please try again.",
         variant: "destructive",
-      })
-    } finally {
-      setIsAnalyzing(false)
+      });
     }
-  }
-
+  };
   const handleFileChange = useCallback((file: File | null) => {
     if (file) {
       const reader = new FileReader();

@@ -26,3 +26,8 @@ dist-ssr
 # models
 model/best_model.keras
 model/final_model.keras
+
+# python
+__pycache__
+*.pyc
+/api/__pycache__
