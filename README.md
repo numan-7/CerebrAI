@@ -58,12 +58,15 @@ This project aims to explore the potential of machine learning in medical imagin
 
 ### Model Training
 Before running the backend, we need ensure the model is trained, or you can put your own model under `model/` with the name `best_model.keras` and use that.
-1. Install dependencies for the model:
+
+1. Import the following [dataset](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset/data)
+
+3. Install dependencies for the model:
     ```bash
     cd ../model
     pip install -r requirements.txt
     ```
-2. Train the model:
+4. Train the model:
    ```bash
    python model.py
    ```
