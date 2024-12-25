@@ -6,9 +6,12 @@ import numpy as np
 import uvicorn
 import io
 
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+
 app = FastAPI()
 
-# Add CORS middleware to allow requests from your frontend
+# add CORS middleware 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"], 
@@ -17,41 +20,41 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load the model
-model = tf.keras.models.load_model("best_model.keras")
+# load the model
+model = tf.keras.models.load_model("../model/best_model.keras")
 
-# Preprocess image function
+# preprocess image function
 def preprocess_image(image: Image.Image) -> np.ndarray:
-    # Resize image to match model's expected sizing
+    # resize image to match model's expected sizing
     image = image.resize((224, 224))
     
-    # Convert image to numpy array and normalize
+    # convert image to numpy array and normalize
     image_array = np.array(image)
     image_array = image_array / 255.0
     
-    # Add batch dimension
+    # add batch dimension
     image_array = np.expand_dims(image_array, axis=0)
     
     return image_array
 
 @app.post("/api/analyze")
 async def analyze_brain_scan(file: UploadFile = File(...)):
-    # Validate file type
+    # validate file type
     # if file.content_type not in ["image/jpeg", "image/png"]:
     #     raise HTTPException(400, detail="Invalid file type. Only JPEG and PNG are supported.")
     
     try:
-        # Read and preprocess the image
+        # read and preprocess the image
         contents = await file.read()
         image = Image.open(io.BytesIO(contents))
         processed_image = preprocess_image(image)
         
-        # Make prediction
+        # make prediction
         prediction = model.predict(processed_image)
         prediction_class = np.argmax(prediction[0])
         confidence = float(prediction[0][prediction_class]) * 100
         
-        # Convert prediction to boolean (assuming class 0 is no tumor and others indicate tumor)
+        # convert prediction to boolean (3 is the index for no tumor)
         has_tumor = prediction_class != 3
         
         return {
@@ -62,7 +65,7 @@ async def analyze_brain_scan(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(500, detail=str(e))
 
-# Optional: Add a health check endpoint
+# health check endpoint
 @app.get("/api/health")
 async def health_check():
     return {"status": "healthy"}
