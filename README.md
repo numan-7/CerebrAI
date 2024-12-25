@@ -53,6 +53,8 @@ This project aims to explore the potential of machine learning in medical imagin
 3. Install dependences for the backend:
     ```bash
     cd api/
+    python -m venv venv
+    source venv/bin/activate 
     pip install -r requirements.txt
     ```
 
@@ -64,6 +66,8 @@ Before running the backend, we need ensure the model is trained, or you can put 
 3. Install dependencies for the model:
     ```bash
     cd ../model
+    python -m venv venv
+    source venv/bin/activate
     pip install -r requirements.txt
     ```
 4. Train the model:
@@ -76,6 +80,7 @@ This step will save the trained model, which the backend will use for prediction
 1. Start the backend server:
     ```bash
     cd ../api
+    source venv/bin/activate 
     TODO: HOWEVER FASTAPI STARTS!
     ```
 2. Start the frontend:
@@ -83,7 +88,7 @@ This step will save the trained model, which the backend will use for prediction
     cd ../
     npm run dev
     ```
-3. Open your browswer and navigate to `http://localhost:5173`
+3. Open your browser and navigate to `http://localhost:5173`
 
 ## Usage
 1. Upload an MRI scan using the provided interface (at the bottom of home page)
