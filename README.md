@@ -5,7 +5,7 @@ CerebrAI is a project that utilizes artificial intelligence to detect brain tumo
 This project aims to explore the potential of machine learning in medical imaging, offering a simplified example of how AI can assist in detecting and classifying brain tumors.
 
 ## Table of Contents
-1. [Features & Dmo](#features)
+1. [Features & Demo](#features-&-demo)
 2. [Tech Stack](#tech-stack)
 3. [Getting Started](#getting-started)
    - [Installation](#installation)
