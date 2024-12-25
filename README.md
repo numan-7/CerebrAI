@@ -81,7 +81,7 @@ This step will save the trained model, which the backend will use for prediction
     ```bash
     cd ../api
     source venv/bin/activate 
-    TODO: HOWEVER FASTAPI STARTS!
+    python -m uvicorn main:app --reload
     ```
 2. Start the frontend:
     ```bash
