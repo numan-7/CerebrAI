@@ -3,6 +3,7 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.utils.class_weight import compute_class_weight
 
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -56,6 +57,8 @@ def create_data_generators(train_dir, test_dir, img_size, batch_size):
 
 # get data
 train_data, test_data = create_data_generators(TRAIN_DIR, TEST_DIR, IMG_SIZE, BATCH_SIZE)
+
+print("Class indices:", train_data.class_indices)
 
 # define the model
 def build_model(input_shape, num_classes):
@@ -145,6 +148,11 @@ def evaluate_model(model, test_data):
     plt.savefig(os.path.join(IMG_SAVE_DIR, "confusion_matrix.png"))
     plt.close()
 
+    # evaluate loss and accuracy
+    results = model.evaluate(test_data)
+    print(f"\nTest Loss: {results[0]:.4f}, Test Accuracy: {results[1]:.4f}")
+
+# evaluate and save results
 evaluate_model(model, test_data)
 
 # save the final model

@@ -42,7 +42,7 @@ type ImageUploadProps = {
 }
 
 export function ImageUpload({ setResult }: ImageUploadProps) {
-  const { analyzeImage, isLoading: isAnalyzing, error } = useAnalyzeImage();
+  const { analyzeImage, isLoading: isAnalyzing } = useAnalyzeImage();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -51,6 +51,7 @@ export function ImageUpload({ setResult }: ImageUploadProps) {
   })
 
   const onSubmit = async (data: UploadFormValues) => {
+    setResult(null);
     const file = data.file[0];
     const result = await analyzeImage(file);
     if (result) {

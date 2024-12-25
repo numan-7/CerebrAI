@@ -10,6 +10,7 @@ export const useAnalyzeImage = () => {
     setError(null);
 
     try {
+      console.log("Uploading file:", file.name);
       const formData = new FormData();
       formData.append("file", file);
 
@@ -21,6 +22,7 @@ export const useAnalyzeImage = () => {
 
       return response.data;
     } catch (err: any) {
+      console.error(err);
       setError(err.response?.data?.detail || "An error occurred while analyzing the image.");
       return null;
     } finally {
