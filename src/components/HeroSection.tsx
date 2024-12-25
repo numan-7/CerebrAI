@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, CheckCircle } from 'lucide-react'
 
 export function HeroSection() {
   const scrollToTryItNow = () => {
@@ -15,10 +15,18 @@ export function HeroSection() {
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
           <span className="gradient-text">AI-Powered</span> Brain Tumor Detection
         </h1>
-        <p className="text-lg sm:text-xl text-gray-600 mb-8">
-          Upload your MRI scan and get instant results with our AI technology.
+        <p className="text-lg sm:text-xl text-gray-600 mb-4">
+          Upload your MRI scan and get instant results with our AI technology, specialized in detecting specific types of brain tumors.
         </p>
-        <Button className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white" onClick={scrollToTryItNow}>
+        <ul className="space-y-2 mb-8">
+          {['Glioma Tumors', 'Meningioma Tumors', 'Pituitary Tumors'].map((tumor, index) => (
+            <li key={index} className="flex items-center text-gray-700">
+              <CheckCircle className="h-5 w-5 text-fuchsia-500 mr-2" />
+              <span>{tumor}</span>
+            </li>
+          ))}
+        </ul>
+        <Button className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white mt-2" onClick={scrollToTryItNow}>
           Get Started <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </div>
